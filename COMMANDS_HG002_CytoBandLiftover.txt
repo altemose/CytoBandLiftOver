@@ -1,0 +1,34 @@
+#Commands to download all required files and execute Refine_Cytoband_Liftover_v1.0.pl
+#to map cytobands from chm13v2.0 to hg002v1.1
+#Nicolas Altemose, 9-9-25
+
+#download censat files
+wget https://github.com/hloucks/CenSatData/raw/refs/heads/main/HG002/v1.1/hg002v1.1.cenSatv2.0.PAT.bed .
+wget https://github.com/hloucks/CenSatData/raw/refs/heads/main/HG002/v1.1/hg002v1.1.cenSatv2.0.MAT.bed .
+
+#download faidx files
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/HG002/assemblies/hg002v1.1.mat.fasta.gz.fai .
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/HG002/assemblies/hg002v1.1.pat.fasta.gz.fai .
+
+#download cytoband file
+wget https://hgdownload.soe.ucsc.edu/gbdb/hs1/cytoBandMapped/cytoBandMapped.bb .
+wget http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.arm64/bigBedToBed .
+sudo chmod a+rwx bigBedToBed
+./bigBedToBed cytoBandMapped.bb chm13v2.0_cytobands_allchrs.bed
+
+#download liftover chain files
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/HG002/assemblies/changes/CHM13v2.0_to_hg002v1.1.mat.chain.gz .
+wget https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/HG002/assemblies/changes/CHM13v2.0_to_hg002v1.1.pat.chain.gz .
+gunzip CHM13v2.0_to_hg002v1.1.mat.chain.gz
+gunzip CHM13v2.0_to_hg002v1.1.pat.chain.gz
+
+#lift over cytobands
+wget http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.arm64/liftOver .
+sudo chmod a+rwx liftOver
+./liftOver chm13v2.0_cytobands_allchrs.bed CHM13v2.0_to_hg002v1.1.mat.chain hg002v1.1.mat_cytobands.bed mat_unmapped.bed
+./liftOver chm13v2.0_cytobands_allchrs.bed CHM13v2.0_to_hg002v1.1.pat.chain hg002v1.1.pat_cytobands.bed pat_unmapped.bed
+
+#run perl script
+wget https://raw.githubusercontent.com/altemose/CytoBandLiftOver/refs/heads/main/Refine_CytoBand_Liftover_v1.0.pl .
+perl Refine_Cytoband_Liftover_v1.0.pl chm13v2.0_cytobands_allchrs.bed hg002v1.1.mat_cytobands.bed hg002v1.1.cenSatv2.0.MAT.bed hg002v1.1.mat.fasta.gz.fai hg002v1.1.mat_cytoBandMapped.bed
+perl Refine_Cytoband_Liftover_v1.0.pl chm13v2.0_cytobands_allchrs.bed hg002v1.1.pat_cytobands.bed hg002v1.1.cenSatv2.0.PAT.bed hg002v1.1.pat.fasta.gz.fai hg002v1.1.pat_cytoBandMapped.bed
