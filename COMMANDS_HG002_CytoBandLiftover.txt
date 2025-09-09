@@ -1,6 +1,8 @@
 #Commands to download all required files and execute Refine_Cytoband_Liftover_v1.0.pl
 #to map cytobands from chm13v2.0 to hg002v1.1
 #Nicolas Altemose, 9-9-25
+#Note: if the input file links become deprecated, all input files can alternatively be downloaded
+#from https://github.com/altemose/CytoBandLiftOver/blob/main/InputFiles.zip
 
 #download censat files
 wget https://github.com/hloucks/CenSatData/raw/refs/heads/main/HG002/v1.1/hg002v1.1.cenSatv2.0.PAT.bed .
