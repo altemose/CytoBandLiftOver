@@ -18,7 +18,7 @@
 use warnings;
 use strict;
 
-my $usage = "perl Refine_Cytoband_Liftover.pl /path/to/chm13v2.0_cytobands_allchrs.bed /path/to/NewAssembly_CytoBands_LiftedOver.bed /path/to/NewAssembly_CenSat_Track.bed  /path/to/NewAssembly_faidxfile.fai /path/to/outputfile.bed";
+my $usage = "perl Refine_Cytoband_Liftover_v1.0.pl /path/to/chm13v2.0_cytobands_allchrs.bed /path/to/NewAssembly_CytoBands_LiftedOver.bed /path/to/NewAssembly_CenSat_Track.bed  /path/to/NewAssembly_faidxfile.fai /path/to/outputfile.bed";
 
 #read in file names from command line
 my $chm13file = "";
@@ -506,7 +506,7 @@ close QC;
 
 print "Printed to $outfile\n";
 print "Issues raised in $issuesfile\n";
-print "QC metrics printed to $qcfile, with columns CHM13_BandLength Lifted_BandLength AbsPctDiffInLength GapFromPreviousBand\n";
+print "QC metrics printed to $qcfile, with columns CHM13_BandLength Lifted_BandLength AbsDiffInLength AbsPctDiffInLength GapFromPreviousBand\n";
 
 
 
