@@ -1,4 +1,3 @@
-# README for CytoBand LiftOver code
 # README for HG002 CytoBand Track and LiftOver code
 -This provides a track with the rough coordinates of cytobands from Giemsa-stained chromosomes.
 -This track should only be taken as a rough guide, based on iterative rounds of liftover between genome assemblies plus heuristic steps for highly repetitive regions.
