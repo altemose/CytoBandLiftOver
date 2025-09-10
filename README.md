@@ -5,6 +5,7 @@
 - For the T2T-chm13v2.0 reference sequence (Nurk et al. 2022, PMID: 35357919), the hg38 cytoband track was lifted over using liftOver then semi-manually corrected.
 - Here, I lifted over the T2T-chm13v2.0 cytoband track to the hg002v1.1.mat and hg002v1.1.pat haplotype assemblies separately, then used annotations of peri/centromeric satellites and rDNAs to adjust centromere and rDNA stalk coordinates.
 - The final output files are hg002v1.1.mat_cytoBandMapped.bed and hg002v1.1.pat_cytoBandMapped.bed.
+- See COMMANDS_HG002_CytoBandLiftover.txt for the full list of bash commands (on a Mac OSX terminal) to download primary input files and regenerate the output tracks. Input files are also available in InputFiles.zip in this repository.
 
 ## Written description of method
 The T2T-chm13v2.0 (hs1) cytoBandMapped track file was obtained at https://hgdownload.soe.ucsc.edu/gbdb/hs1/cytoBandMapped/ and converted to bed format. Cytoband coordinates were first lifted over to hg002v1.1.mat and hg002v1.1.pat separately using chain files CHM13v2.0_to_hg002v1.1.mat.chain and CHM13v2.0_to_hg002v1.1.mat.chain, obtained from https://s3-us-west-2.amazonaws.com/human-pangenomics/index.html?prefix=T2T/HG002/assemblies/changes/. The CenSat annotation track was obtained from https://github.com/hloucks/CenSatData/tree/main/HG002/v1.1. The reference sequence fasta index files hg002v1.1.mat.fasta.gz.fai and hg002v1.1.pat.fasta.gz.fai, which indicate chromosome names and lengths, were obtained from https://s3-us-west-2.amazonaws.com/human-pangenomics/T2T/HG002/assemblies/. 
@@ -22,7 +23,6 @@ A perl script (Refine_CytoBand_Liftover_v1.0.pl) was generated to extract centro
 ```
 perl Refine_Cytoband_Liftover_v1.0.pl /path/to/chm13v2.0_cytobands_allchrs.bed /path/to/NewAssembly_CytoBands_LiftedOver.bed /path/to/NewAssembly_CenSat_Track.bed  /path/to/NewAssembly_faidxfile.fai /path/to/outputfile.bed
 ```
-- See COMMANDS_HG002_CytoBandLiftover.txt for the full list of bash commands (on a Mac OSX terminal) to download primary input files and regenerate the output tracks. Input files are also available in InputFiles.zip in this repository.
 - Primary output files are hg002v1.1.mat_cytoBandMapped.bed and hg002v1.1.pat_cytoBandMapped.bed.
 - Supplementary output files are in IssuesAndQC.zip, which identify bands that required special heuristic steps (*ISSUES.txt) and compare lifted over bands to T2T-chm13v2.0 for QC purposes (*QC.txt). QC supplementary columns are:
 - CHM13 band length
